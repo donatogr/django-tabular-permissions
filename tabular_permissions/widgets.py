@@ -1,5 +1,4 @@
 from __future__ import unicode_literals
-import pdb
 from django import __version__ as django_version
 from django.apps import apps
 from django.contrib.auth.models import Permission
@@ -48,17 +47,20 @@ class TabularPermissionsWidget(FilteredSelectMultiple):
                 add_perm_name = get_perm_name(model_name, 'add')
                 change_perm_name = get_perm_name(model_name, 'change')
                 delete_perm_name = get_perm_name(model_name, 'delete')
-                # pdb.set_trace()
+                view_perm_name = get_perm_name(model_name, 'view')
+
                 add_perm_id = codename_id_map.get('%s_%s' % (add_perm_name, ct_id), False)
                 change_perm_id = codename_id_map.get('%s_%s' % (change_perm_name, ct_id), False)
                 delete_perm_id = codename_id_map.get('%s_%s' % (delete_perm_name, ct_id), False)
+                view_perm_id = codename_id_map.get('%s_%s' % (view_perm_name, ct_id), False)
 
-                if add_perm_id and change_perm_id and delete_perm_id and not {add_perm_id, change_perm_id,
-                                                                              delete_perm_id} & excluded_perms:
-                    excluded_perms.update([add_perm_id, change_perm_id, delete_perm_id])
+                if add_perm_id and change_perm_id and delete_perm_id and view_perm_id and not {
+                   add_perm_id, change_perm_id, delete_perm_id, view_perm_id} & excluded_perms:
+                    excluded_perms.update([add_perm_id, change_perm_id, delete_perm_id, view_perm_id])
                     reminder_perms.pop('%s_%s' % (add_perm_name, ct_id))
                     reminder_perms.pop('%s_%s' % (change_perm_name, ct_id))
                     reminder_perms.pop('%s_%s' % (delete_perm_name, ct_id))
+                    reminder_perms.pop('%s_%s' % (view_perm_name, ct_id))
 
                     if app.label in TABULAR_PERMISSIONS_EXCLUDE_APPS \
                             or model_name in TABULAR_PERMISSIONS_EXCLUDE_MODELS \
@@ -76,6 +78,8 @@ class TabularPermissionsWidget(FilteredSelectMultiple):
                         'change_perm_name': change_perm_name,
                         'delete_perm_id': delete_perm_id,
                         'delete_perm_name': delete_perm_name,
+                        'view_perm_id': view_perm_id,
+                        'view_perm_name': view_perm_name,
                     })
 
             if app.models:

@@ -30,6 +30,14 @@
                 {% trans 'All' %}
             </label>
         </th>
+        <th>
+            {% trans 'View' %}
+            <label>
+                <input type="checkbox" class="checkbox select-all view"
+                       id="perm_view_select_all">
+                {% trans 'All' %}
+            </label>
+        </th>
     </tr>
     </thead>
     <tbody>
@@ -82,6 +90,17 @@
                             <input type="checkbox" class="checkbox delete {{ model.model_name }}"
                                    id="id_{{ model.delete_perm_name }}" data-perm-id="{{ model.delete_perm_id }}"
                                     {% if model.delete_perm_id in user_permissions %}
+                                   checked="checked"
+                                    {% endif %}>
+                        </label>
+                    </div>
+                </td>
+                <td class="view">
+                    <div class="checkbox ">
+                        <label>
+                            <input type="checkbox" class="checkbox view {{ model.model_name }}"
+                                   id="id_{{ model.view_perm_name }}" data-perm-id="{{ model.view_perm_id }}"
+                                    {% if model.view_perm_id in user_permissions %}
                                    checked="checked"
                                     {% endif %}>
                         </label>
