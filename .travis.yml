@@ -3,8 +3,8 @@ python:
   - "2.7"
   - "3.4"
   - "3.5"
-  - "3.6"
 env:
+<<<<<<< HEAD
   - DJANGO=django==1.11.5
 
 before_install:
@@ -13,6 +13,10 @@ before_install:
   - tar -xzf geckodriver-v0.17.0-linux64.tar.gz -C geckodriver
   - export PATH=$PATH:$PWD/geckodriver
 
+=======
+  - DJANGO=django==1.8.7
+  - DJANGO=django==1.9.0
+>>>>>>> parent of 005082d... Version 1.10. Support for django 1.11
 # command to install dependencies
 install:
     - pip install -r tests/requirements.txt
