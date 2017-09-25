@@ -44,19 +44,21 @@
     {% for app in apps_available %}
 
         {% for model in app.models %}
-
-            <tr class="{% cycle 'row1' 'row2' %}">
-
-                {% if forloop.counter0 == 0 %}
+            {% if forloop.counter0 == 0 %}
+                <tr>
                     <td rowspan="{{ app.models|length|add:1 }}" class="app-name"
                         data-app-name="{{ app.label }}">{{ app.verbose_name }}
                     </td>
-                    <th>{% trans 'Model' %}</th>
-			        <th>{% trans 'Add' %}</th>
-			        <th>{% trans 'Change' %}</th>
-			        <th>{% trans 'Delete' %}</th>
-			        <th>{% trans 'View' %}</th>
-                {% endif %}
+                    <td>{% trans 'Model' %}</td>
+                    <td>{% trans 'Add' %}</td>
+                    <td>{% trans 'Change' %}</td>
+                    <td>{% trans 'Delete' %}</td>
+                    <td>{% trans 'View' %}</td>
+                </tr>
+            {% endif %}
+
+            <tr class="{% cycle 'row1' 'row2' %}">
+
                 <td>
                     {{ model.verbose_name }}
                     <div class="input">
