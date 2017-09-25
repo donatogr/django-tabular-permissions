@@ -15,17 +15,6 @@ Features:
 * Tested on Django 1.8 & Django 1.9.
 * Tested on Python 2.7, 3.4 & 3.5
 
-<<<<<<< HEAD
-Compatibility:
---------------
-Django tabular permissions current version 1.1 supports only django 1.11
-For earlier versions of django use django-tabular-permissions 1.0.9.
-
-
-
-
-=======
->>>>>>> parent of 005082d... Version 1.10. Support for django 1.11
 .. image:: https://travis-ci.org/RamezIssac/django-tabular-permissions.svg?branch=master
     :target: https://travis-ci.org/RamezIssac/django-tabular-permissions
 

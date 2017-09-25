@@ -9,11 +9,7 @@ os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 setup(
     name='django-tabular-permissions',
-<<<<<<< HEAD
-    version='1.1',
-=======
     version='1.0.9',
->>>>>>> parent of 005082d... Version 1.10. Support for django 1.11
     packages=['tabular_permissions'],
     include_package_data=True,
     license='BSD License',
