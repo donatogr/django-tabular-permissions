@@ -62,7 +62,7 @@ class TabularPermissionsWidget(FilteredSelectMultiple):
 
                     if app.label in TABULAR_PERMISSIONS_EXCLUDE_APPS \
                             or model_name in TABULAR_PERMISSIONS_EXCLUDE_MODELS \
-                            or TABULAR_PERMISSIONS_EXCLUDE_FUNCTION(model):
+                            or TABULAR_PERMISSIONS_EXCLUDE_FUNCTION()(model):
                         continue
 
                     app_dict['models'].append({
