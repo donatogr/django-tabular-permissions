@@ -48,9 +48,14 @@
             <tr class="{% cycle 'row1' 'row2' %}">
 
                 {% if forloop.counter0 == 0 %}
-                    <td rowspan="{{ app.models|length }}" class="app-name"
+                    <td rowspan="{{ app.models|length|add:1 }}" class="app-name"
                         data-app-name="{{ app.label }}">{{ app.verbose_name }}
                     </td>
+                    <th>{% trans 'Model' %}</th>
+			        <th>{% trans 'Add' %}</th>
+			        <th>{% trans 'Change' %}</th>
+			        <th>{% trans 'Delete' %}</th>
+			        <th>{% trans 'View' %}</th>
                 {% endif %}
                 <td>
                     {{ model.verbose_name }}
