@@ -19,6 +19,12 @@
                 $(e).prop('checked', state)
             })
         });
+        $('#perm_view_select_all').on('change', function () {
+            var state = $(this).prop('checked');
+            $('#tabular_permissions').find('tr td.view').find('input').each(function (i, e) {
+                $(e).prop('checked', state)
+            })
+        });
         $('.select-all.select-row').on('change', function(){
             var $this = $(this);
             $this.parents('tr').find('.checkbox').not('.select-all').each(function(i,elem){
