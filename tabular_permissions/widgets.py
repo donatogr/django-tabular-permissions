@@ -12,7 +12,7 @@ from django.template.loader import get_template
 from django.utils.encoding import force_text
 from django.utils.safestring import mark_safe
 from .app_settings import EXCLUDE_FUNCTION, EXCLUDE_APPS, \
-    EXCLUDE_MODELS, TEMPLATE, USE_FOR_CONCRETE, TRANSLATION_FUNC, APPS_CUSTOMIZATION_FUNC, EXCLUDE_VIEWONLY_MODELS
+    EXCLUDE_MODELS, TEMPLATE, USE_FOR_CONCRETE, TRANSLATION_FUNC, APPS_CUSTOMIZATION_FUNC
 from .helpers import get_perm_name
 
 
@@ -35,9 +35,9 @@ class TabularPermissionsWidget(FilteredSelectMultiple):
         self.input_name = input_name  # in case of UserAdmin, it's 'user_permissions', GroupAdmin it's 'permissions'
         self.hide_original = True
 
-    def render(self, name, value, attrs=None, choices=()):
-
-        apps_available = OrderedDict() # []  user_permissions = Permission.objects.filter(id__in=value or []).values_list('id', flat=True)
+    def render(self, name, value, attrs=None, *args, **kwargs):
+        choices = self.choices
+        apps_available = OrderedDict() # []  # main container to send to template
         user_permissions = Permission.objects.filter(id__in=value or []).values_list('id', flat=True)
         all_perms = Permission.objects.all().values('id', 'codename', 'content_type_id').order_by('codename')
         excluded_perms = set([])
@@ -99,13 +99,6 @@ class TabularPermissionsWidget(FilteredSelectMultiple):
                             or EXCLUDE_FUNCTION(model):
                         continue
                     
-                    if EXCLUDE_VIEWONLY_MODELS \
-                        and (view_perm_id 
-                             and not any([add_perm_id, change_perm_id, delete_perm_id]) 
-                             and not model_custom_permissions
-                            ):
-                        continue
-                    
                     app_dict['models'][model_name] = {
                         'model_name': model_name,
                         'model': model,
@@ -125,7 +118,7 @@ class TabularPermissionsWidget(FilteredSelectMultiple):
             if app.models:
                 apps_available[app.label] = app_dict
         
-        django_supports_view_permissions = True
+        django_supports_view_permissions = True # Fix for Django 1.8
         if django_supports_view_permissions and custom_permissions_available:
             colspan = 7
         elif django_supports_view_permissions or custom_permissions_available:
@@ -153,7 +146,7 @@ class TabularPermissionsWidget(FilteredSelectMultiple):
         else:
             original_class = FilteredSelectMultiple(self.verbose_name, self.is_stacked, attrs, reminder_choices)
 
-        output = [super(FilteredSelectMultiple, self).render(name, value, attrs, choices)]
+        output = [super(FilteredSelectMultiple, self).render(name, value, attrs, *args, **kwargs)]
 
         initial = mark_safe(''.join(output))
         response = ' <hr/>'.join([force_text(body), force_text(initial)])
