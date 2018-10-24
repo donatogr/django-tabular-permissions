@@ -146,7 +146,7 @@ class TabularPermissionsWidget(FilteredSelectMultiple):
         else:
             original_class = FilteredSelectMultiple(self.verbose_name, self.is_stacked, attrs, reminder_choices)
 
-        output = [super(FilteredSelectMultiple, self).render(name, value, attrs, *args, **kwargs)]
+        output = original_class.render(name, value, attrs, *args, **kwargs)
 
         initial = mark_safe(''.join(output))
         response = ' <hr/>'.join([force_text(body), force_text(initial)])
